@@ -47,4 +47,14 @@ public class EmployeeRESTController {
 		return employee;
 	}
 
+	@DeleteMapping("/employees/{id}")
+	public String deleteEmployee(@PathVariable int id) throws NoSuchFieldException {
+		if (service.getById(id) == null) {
+			throw new NoSuchFieldException("There is no employee with ID = " + id + " in database");
+		}
+
+		service.delete(id);
+
+		return "Employee with ID = " + id + " was deleted";
+	}
 }
