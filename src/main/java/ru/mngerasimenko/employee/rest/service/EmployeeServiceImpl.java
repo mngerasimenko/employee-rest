@@ -11,34 +11,34 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeDAO employeeDAO;
+	private final EmployeeDAO employeeDAO;
 
-    @Autowired
-    public EmployeeServiceImpl(EmployeeDAO employeeDAO) {
-        this.employeeDAO = employeeDAO;
-    }
+	@Autowired
+	public EmployeeServiceImpl(EmployeeDAO employeeDAO) {
+		this.employeeDAO = employeeDAO;
+	}
 
-    @Override
-    @Transactional
-    public List<Employee> getAll() {
-        return employeeDAO.getAll();
-    }
+	@Override
+	@Transactional
+	public List<Employee> getAll() {
+		return employeeDAO.getAll();
+	}
 
-    @Override
-    @Transactional
-    public void save(Employee employee) {
-        employeeDAO.save(employee);
-    }
+	@Override
+	@Transactional
+	public void save(Employee employee) {
+		employeeDAO.save(employee);
+	}
 
-    @Override
-    @Transactional
-    public Employee getById(int id) {
-        return employeeDAO.getById(id);
-    }
+	@Override
+	@Transactional
+	public Employee getById(int id) {
+		return employeeDAO.getById(id);
+	}
 
-    @Override
-    @Transactional
-    public void delete(int id) {
-        employeeDAO.delete(id);
-    }
+	@Override
+	@Transactional
+	public void delete(int id) {
+		employeeDAO.delete(id);
+	}
 }

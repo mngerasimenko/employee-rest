@@ -14,41 +14,41 @@ import java.util.List;
 @RequestMapping("/api")
 public class MyRESTController {
 
-    private final EmployeeService service;
+	private final EmployeeService service;
 
-    @Autowired
-    public MyRESTController(EmployeeService service) {
-        this.service = service;
-    }
+	@Autowired
+	public MyRESTController(EmployeeService service) {
+		this.service = service;
+	}
 
-    @GetMapping("/employees")
-    public List<Employee> showAll() {
-        return service.getAll();
-    }
+	@GetMapping("/employees")
+	public List<Employee> showAll() {
+		return service.getAll();
+	}
 
-    @GetMapping("/employees/{id}")
-    public Employee getEmployee(@PathVariable int id) throws NoSuchFieldException {
-        Employee employee = service.getById(id);
-        if (employee == null) {
-            throw new NoSuchFieldException("There is no employee with ID = " + id + " in database");
-        }
+	@GetMapping("/employees/{id}")
+	public Employee getEmployee(@PathVariable int id) throws NoSuchFieldException {
+		Employee employee = service.getById(id);
+		if (employee == null) {
+			throw new NoSuchFieldException("There is no employee with ID = " + id + " in database");
+		}
 
-        return employee;
-    }
+		return employee;
+	}
 
-    @ExceptionHandler
-    public ResponseEntity<EmployeeIncorrectData> handleException(NoSuchFieldException exception) {
-        EmployeeIncorrectData data = new EmployeeIncorrectData();
-        data.setInfo(exception.getMessage());
+	@ExceptionHandler
+	public ResponseEntity<EmployeeIncorrectData> handleException(NoSuchFieldException exception) {
+		EmployeeIncorrectData data = new EmployeeIncorrectData();
+		data.setInfo(exception.getMessage());
 
-        return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
-    }
+		return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
+	}
 
-    @ExceptionHandler
-    public ResponseEntity<EmployeeIncorrectData> handleException(Exception exception) {
-        EmployeeIncorrectData data = new EmployeeIncorrectData();
-        data.setInfo(exception.getMessage());
+	@ExceptionHandler
+	public ResponseEntity<EmployeeIncorrectData> handleException(Exception exception) {
+		EmployeeIncorrectData data = new EmployeeIncorrectData();
+		data.setInfo(exception.getMessage());
 
-        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
-    }
+		return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
+	}
 }

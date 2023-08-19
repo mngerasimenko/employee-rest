@@ -12,41 +12,42 @@ import java.util.List;
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
 
-    private final SessionFactory sessionFactory;
+	private final SessionFactory sessionFactory;
 
-    @Autowired
-    public EmployeeDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+	@Autowired
+	public EmployeeDAOImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
-    @Override
-    public List<Employee> getAll() {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Employee> query = session.createQuery("from Employee", Employee.class);
+	@Override
+	public List<Employee> getAll() {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Employee> query = session.createQuery("from Employee", Employee.class);
 
-        return query.getResultList();
-    }
+		return query.getResultList();
+	}
 
-    @Override
-    public void save(Employee employee) {
-        Session session = sessionFactory.getCurrentSession();
+	@Override
+	public void save(Employee employee) {
+		Session session = sessionFactory.getCurrentSession();
 
-        session.saveOrUpdate(employee);
-    }
+		session.saveOrUpdate(employee);
+	}
 
-    @Override
-    public Employee getById(int id) {
-        Session session = sessionFactory.getCurrentSession();
+	@Override
+	public Employee getById(int id) {
+		Session session = sessionFactory.getCurrentSession();
 
-        return session.get(Employee.class, id);
-    }
+		return session.get(Employee.class, id);
+	}
 
-    @Override
-    public void delete(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Employee> query = session.createQuery("delete from Employee where id =: employeeId");
-        query.setParameter("employeeId", id);
+	@Override
+	public void delete(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		Query<Employee> query = session.createQuery("delete from Employee where id =: employeeId");
+		query.setParameter("employeeId", id);
 
-        query.executeUpdate();
-    }
+		query.executeUpdate();
+	}
 }

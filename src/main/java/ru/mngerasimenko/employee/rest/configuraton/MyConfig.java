@@ -19,40 +19,40 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class MyConfig {
 
-    @Bean
-    public DataSource dataSource() {
-        ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        try {
-            dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
-            dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/my_db?useSSL=false");
-            dataSource.setUser("bestuser");
-            dataSource.setPassword("bestuser");
-        } catch (PropertyVetoException e) {
-            throw new RuntimeException(e);
-        }
+	@Bean
+	public DataSource dataSource() {
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();
+		try {
+			dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
+			dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/my_db?useSSL=false");
+			dataSource.setUser("bestuser");
+			dataSource.setPassword("bestuser");
+		} catch (PropertyVetoException e) {
+			throw new RuntimeException(e);
+		}
 
-        return dataSource;
-    }
+		return dataSource;
+	}
 
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("ru.mngerasimenko.employee.rest.entity");
+	@Bean
+	public LocalSessionFactoryBean sessionFactory() {
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+		sessionFactory.setDataSource(dataSource());
+		sessionFactory.setPackagesToScan("ru.mngerasimenko.employee.rest.entity");
 
-        Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
-        hibernateProperties.setProperty("hibernate.show_sql", "true");
-        sessionFactory.setHibernateProperties(hibernateProperties);
+		Properties hibernateProperties = new Properties();
+		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		hibernateProperties.setProperty("hibernate.show_sql", "true");
+		sessionFactory.setHibernateProperties(hibernateProperties);
 
-        return sessionFactory;
-    }
+		return sessionFactory;
+	}
 
-    @Bean
-    public HibernateTransactionManager transactionManager() {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
+	@Bean
+	public HibernateTransactionManager transactionManager() {
+		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+		transactionManager.setSessionFactory(sessionFactory().getObject());
 
-        return transactionManager;
-    }
+		return transactionManager;
+	}
 }
