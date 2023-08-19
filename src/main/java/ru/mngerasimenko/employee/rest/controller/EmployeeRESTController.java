@@ -9,12 +9,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class MyRESTController {
+public class EmployeeRESTController {
 
 	private final EmployeeService service;
 
 	@Autowired
-	public MyRESTController(EmployeeService service) {
+	public EmployeeRESTController(EmployeeService service) {
 		this.service = service;
 	}
 
@@ -32,4 +32,19 @@ public class MyRESTController {
 
 		return employee;
 	}
+
+	@PostMapping("/employees")
+	public Employee addNewEmployee(@RequestBody Employee employee) {
+		service.save(employee);
+
+		return employee;
+	}
+
+	@PutMapping("/employees")
+	public Employee updateEmployee(@RequestBody Employee employee) {
+		service.save(employee);
+
+		return employee;
+	}
+
 }
